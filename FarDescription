@@ -1,0 +1,64 @@
+		P R E L I M I N A R Y    S P E C I F I C A T I O N
+
+					 Due 2:00 AM, Friday, 18 September 2015
+
+CPSC 323   Homework #1  'Tis a Far, Far better thing ...
+
+(60 points) Implement in C the file archiver Far, a relative of the system
+utilities ar and tar that offers a limited subset of their functionality:
+
+  NAME
+    Far - mini file archiver
+   
+  SYNOPSIS
+    Far key archive [name]*
+   
+  DESCRIPTION
+    Far uses a single "archive" file to maintain a collection of regular files
+    and directories called "members".  The KEY argument specifies the action
+    to be taken (see below); the ARCHIVE argument specifies the name of the
+    archive file; and the NAME arguments (if any) are names specifying which
+    files or directories to save, to restore, or to delete.
+
+    The single-character KEY argument must be one of the following letters:
+   
+    r  For each NAME specified, if there is a member of the archive with
+       that name, replace it in the archive by the current version of the
+       corresponding file; otherwise insert the file with that name at the
+       end of the archive.  If the archive file does not exist, create an
+       empty archive first.  If NAME specifies a directory rather than a
+       file, recursively replace all filenames in that directory as well
+       (except for the special directories . and ..).  Issue an error message
+       if a file or directory does not exist.  Note that only the name of a
+       directory is stored in the archive.
+
+    x  For each NAME specified, extract (i.e., create or overwrite the file
+       corresponding to) each member of the archive with that name and any
+       member in a directory hierarchy with that name.  If there are no NAME
+       arguments, extract every member of the archive.  Issue an error message
+       if the archive file does not exist or if a NAME does not cause an
+       extraction.  (Extraction may require creating directories, but Far does
+       not recreate or overwrite existing directories.  Similarly, Far issues
+       an error message rather than overwrite existing read-only files.)
+
+    d  For each NAME specified, delete from the archive the member with that
+       name and any member in a directory hierarchy with that name.  Issue an
+       error message if the archive file does not exist or if a NAME does not
+       cause a deletion.  (Note that the file with the name specified need not
+       exist outside the archive.)
+
+    t  PRINT to the standard output the size (in bytes) and name of each member
+       of the archive (in order of appearance) using a "%8d %s" format.  Ignore
+       any name arguments.  (Note that the size of a directory is 0, and that
+       the name should be followed by a /.)
+
+    If the name of the archive is -, read the archive from the standard input.
+    The r and d keys write the new archive file to the standard output, but the
+    t and x keys (which do not modify the archive) do not.
+
+  LIMITATIONS
+    Far only handles regular files and directories; symbolic links, sockets,
+    FIFOs, and devices are ignored.  Far treats hard links to the same inode
+    as distinct files.
+   
+
